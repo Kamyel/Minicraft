@@ -45,6 +45,10 @@ public class Game extends Canvas implements Runnable,KeyListener,MouseListener,M
 	public static Spritesheet spritesheet;
 	public static Menusprites menusprites;
 	public static Player player;
+	public Menu menu;
+	public static String[] g_options = {"respawn", "title_menu"};
+	public int g_currentOption = 0;
+	public int g_maxOptions = g_currentOption - 1;
 	
 	private int mX, mY;
 	
@@ -54,7 +58,7 @@ public class Game extends Canvas implements Runnable,KeyListener,MouseListener,M
 
 	public UI ui;
 	
-	public static String gameState = "NORMAL";
+	public static String gameState = "GAME_OVER";
 	
 	public Game(){
 		addKeyListener(this);
@@ -73,6 +77,8 @@ public class Game extends Canvas implements Runnable,KeyListener,MouseListener,M
 		inventario = new Inventario();
 		
 		entities.add(player);
+		
+		menu = new Menu();
 	}
 	
 	public void initFrame(){
@@ -115,8 +121,14 @@ public class Game extends Canvas implements Runnable,KeyListener,MouseListener,M
 			inventario.tick();
 		 }
 	   }else if(gameState == "GAME_OVER") {
-		
+		   
 	   }
+		if(restartGame = true) {
+			gameState = "NORMAL";
+		
+	   }else if(gameState == "MENU") {
+			menu.tick();
+		}
 	}
 	
 	public void render(){
@@ -149,6 +161,8 @@ public class Game extends Canvas implements Runnable,KeyListener,MouseListener,M
 			g2.drawImage(TitleOptions.T_GAMEOVER, 240 , 120 , 240, 53, null);
 			g2.drawImage(TitleOptions.T_RESPAWN, 220 , 270 , 280, 40, null);
 			g2.drawImage(TitleOptions.T_EXITTITLE, 220 , 320 , 280, 40, null);
+		}else if(gameState == "MENU") {
+			menu.render(g);
 		}
 		bs.show();
 	}
@@ -246,15 +260,10 @@ public class Game extends Canvas implements Runnable,KeyListener,MouseListener,M
 		inventario.mx = e.getX();
 		inventario.my = e.getY();
 		
-		if(e.getButton() == MouseEvent.BUTTON1 && restartGame) {
-			mX = e.getX();
-			mY = e.getY();
-			
-			if(mX == 220 && mY == 270){
-			gameState = "NORMAL";
-		   }
-		}
-	}
+			if(gameState == "GAME_OVER"){
+				restartGame = true;
+	      }
+	   }
 
 	@Override
 	public void mouseReleased(MouseEvent arg0) {
