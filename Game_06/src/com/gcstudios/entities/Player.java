@@ -24,8 +24,8 @@ public class Player extends Entity{
 	public int jumpHeight = 28;
 	public int jumpFrames = 0;
 	
-	public int life = 5;
-	public int hunger = 5;
+	public double life = 12;
+	public int curHunger = 5;
 	
 	private int framesAnimation = 0;
 	private int maxFrames = 15;

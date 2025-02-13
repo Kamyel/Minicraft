@@ -23,6 +23,10 @@ public class Tile {
 	public static BufferedImage TILE_TABUA = Game.spritesheet.getSprite(80,16,16,16);
 	public static BufferedImage TILE_FOLHA = Game.spritesheet.getSprite(64,16,16,16);
 	public static BufferedImage TILE_MADEIRA = Game.spritesheet.getSprite(48,16,16,16);
+	public static BufferedImage TILE_HEART = Game.spritesheet.getSprite(99,19,11,11);
+	public static BufferedImage TILE_HALFHEART = Game.spritesheet.getSprite(115,19,11,11);
+	public static BufferedImage TILE_UNHEART = Game.spritesheet.getSprite(131,19,11,11);
+	
 
 	private BufferedImage sprite;
 	private int x,y;

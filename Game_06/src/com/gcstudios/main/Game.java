@@ -46,6 +46,10 @@ public class Game extends Canvas implements Runnable,KeyListener,MouseListener,M
 	public static Menusprites menusprites;
 	public static Player player;
 	
+	private int mX, mY;
+	
+	private boolean restartGame = false;
+	
 	public static Inventario inventario;
 
 	public UI ui;
@@ -69,7 +73,6 @@ public class Game extends Canvas implements Runnable,KeyListener,MouseListener,M
 		inventario = new Inventario();
 		
 		entities.add(player);
-		
 	}
 	
 	public void initFrame(){
@@ -112,7 +115,7 @@ public class Game extends Canvas implements Runnable,KeyListener,MouseListener,M
 			inventario.tick();
 		 }
 	   }else if(gameState == "GAME_OVER") {
-		   
+		
 	   }
 	}
 	
@@ -144,6 +147,8 @@ public class Game extends Canvas implements Runnable,KeyListener,MouseListener,M
 			g2.fillRect(0, 0, 800, 600);
 			
 			g2.drawImage(TitleOptions.T_GAMEOVER, 240 , 120 , 240, 53, null);
+			g2.drawImage(TitleOptions.T_RESPAWN, 220 , 270 , 280, 40, null);
+			g2.drawImage(TitleOptions.T_EXITTITLE, 220 , 320 , 280, 40, null);
 		}
 		bs.show();
 	}
@@ -240,6 +245,15 @@ public class Game extends Canvas implements Runnable,KeyListener,MouseListener,M
 		
 		inventario.mx = e.getX();
 		inventario.my = e.getY();
+		
+		if(e.getButton() == MouseEvent.BUTTON1 && restartGame) {
+			mX = e.getX();
+			mY = e.getY();
+			
+			if(mX == 220 && mY == 270){
+			gameState = "NORMAL";
+		   }
+		}
 	}
 
 	@Override
